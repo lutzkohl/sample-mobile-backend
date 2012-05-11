@@ -1,0 +1,33 @@
+install mongodb
+install tomcat 7
+install curl
+
+create a new dynamic web project in eclipse name it "samplebackend"
+
+copy files from webcontent and src into your project
+
+start your mongodb from the bin folder of your installation with "mongod -dbpath C:\data" (replace "C:\data" with a folder where your data should be stored)
+
+run your project on server tomcat7
+
+open a shell and test with curl:
+
+post a member
+curl -X POST -H "Content-Type: application/json" http://localhost:8080/samplebackend/rest/members -d '{ "userName" : "demo", "password" : "testing", "firstName" : "John", "lastName" : "Doe" }'
+
+get my member object	
+curl http://localhost:8080/samplebackend/rest/members/me -u demo:testing 
+
+post a place
+curl -X POST -H "Content-Type: application/json" http://localhost:8080/samplebackend/rest/places -d '{ "placeName" : "Intershop-Tower", "address" : "Leutragraben 1, 07743 Jena", "loc" : [11.5,50.8] }' 
+
+please save the id of your place in the response
+
+post a comment (please replace the id of the place "4fac...cd730" with the result of the last command)
+curl -X POST -H "Content-Type: application/json" -u braunpet:hallo http://localhost:8080/samplebackend/rest/places/4facceba5aa5ebe5028cd730/comments -d '{ "text" : "Toll hier" }' -v
+
+get all comments of a specific place (please replace the id of the place "4fac...cd730" with the result of the place posting)
+curl "http://localhost:8080/samplebackend/rest/places/4facceba5aa5ebe5028cd730/comments" 
+
+get all places around a coordinate
+curl "http://localhost:8080/samplebackend/rest/places?lng=11.8&lat=50.0&radius=500"
