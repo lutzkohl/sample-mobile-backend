@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>Interea-backend</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+		<description>Interea REST interface</description>
+		<display-name>Interea REST interface</display-name>
+		<servlet-name>IntereaREST</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>com.sun.jersey.config.property.resourceConfigClass</param-name>
+			<param-value>com.sun.jersey.api.core.PackagesResourceConfig</param-value>
+		</init-param>
+		<init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>com.interea.rest</param-value>
+		</init-param>
+		
+		<!-- Mapping JSON POJO -->
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        
+ 		<!-- Logger of the REST requests and responses -->		
+ 		<init-param>
+        	<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+        	<param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
+     	</init-param>
+     	<init-param>
+        	<param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+         	<param-value>com.sun.jersey.api.container.filter.LoggingFilter,com.sun.jersey.server.linking.LinkFilter</param-value>
+     	</init-param>
+
+		<init-param>
+			<param-name>com.sun.jersey.config.feature.Trace</param-name>
+			<param-value>false</param-value>
+		</init-param>
+     	
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>IntereaREST</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+  
+</web-app>
