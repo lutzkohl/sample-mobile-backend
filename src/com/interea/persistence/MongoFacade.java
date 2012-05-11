@@ -11,18 +11,8 @@ public class MongoFacade
 {
 	public static final String MAIN_DATABASE_NAME = "interea";
 
-	/**
-	 * Because mongodb needs to know about classes created in {@link MemoryClassLoader}, we have to keep one instance
-	 * per classloader here; otherwise, mongo does not get the correct class of the object to manipulate, which ends in
-	 * bullshit.
-	 */
 	private static Map<ClassLoader, MongoFacade> instances = new HashMap<ClassLoader, MongoFacade>( );
 
-	/**
-	 * Returns the {@link MongoFacade} singleton instance for the current class loader
-	 * 
-	 * @return {@link MongoFacade} singleton instance
-	 */
 	public static MongoFacade getInstance( )
 	{
 		final ClassLoader cl = Thread.currentThread( ).getContextClassLoader( );
